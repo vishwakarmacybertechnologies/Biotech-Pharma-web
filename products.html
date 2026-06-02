@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biotech Pharma | Global Product Catalog</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header id="navbar">
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="biotech_logo1.png" alt="Biotech Pharma Logo">
+            </a>
+            <div class="hamburger" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Guaranteed Visible Premium Hero Image -->
+    <div class="page-header" style="background-image: linear-gradient(rgba(10, 25, 47, 0.8), rgba(10, 25, 47, 0.8)), url('https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; background-repeat: no-repeat; width: 100%; min-height: 400px; display: flex; align-items: center; justify-content: center;">
+        <div class="container text-center">
+            <h1 class="mega-title" style="color: white;">Global Product Database</h1>
+            <p class="lead-text" style="color: #cbd5e1;">Browse our 6000+ approved SKUs available for mass manufacturing, wholesale, and export.</p>
+        </div>
+    </div>
+
+    <main class="container section-padding slide-up">
+        
+        <!-- Wholesale CTA Banner -->
+        <div class="wholesale-banner mb-5 premium-shadow">
+            <div>
+                <h3><i class="fas fa-shipping-fast gradient-gold icon-gradient"></i> Commercial Wholesale & Export Orders</h3>
+                <p>We supply massive volumes to international governments, hospital networks, and distributors. Minimum Order Quantities (MOQ) apply.</p>
+            </div>
+            <a href="contact.html" class="btn btn-outline-white">Request Bulk Pricing</a>
+        </div>
+
+        <div class="products-layout">
+            <!-- Sidebar for filtering -->
+            <div class="products-sidebar premium-shadow">
+                <h3>Formulation Categories</h3>
+                <ul id="category-filter" class="cat-list">
+                    <li><a href="#" class="active" data-filter="All"><i class="fas fa-layer-group"></i> Complete Database</a></li>
+                    <li><a href="#" data-filter="Pharmaceuticals"><i class="fas fa-pills"></i> Pharmaceuticals</a></li>
+                    <li><a href="#" data-filter="Nutraceuticals"><i class="fas fa-leaf"></i> Nutraceuticals</a></li>
+                    <li><a href="#" data-filter="Herbal"><i class="fas fa-seedling"></i> Herbal / Ayurvedic</a></li>
+                    <li><a href="#" data-filter="Cosmetics"><i class="fas fa-spa"></i> Derma & Cosmetics</a></li>
+                    <li><a href="#" data-filter="Medical Supplies & Surgicals"><i class="fas fa-stethoscope"></i> Medical & Surgicals</a></li>
+                </ul>
+            </div>
+            
+            <!-- Main Content Area for Data Table -->
+            <div class="products-content">
+                <div class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="productSearch" placeholder="Search formulations by chemical, name, or form (e.g., 'Paracetamol')...">
+                </div>
+                
+                <div class="table-responsive premium-shadow">
+                    <table class="products-table">
+                        <thead>
+                            <tr>
+                                <th>Clinical Composition / Product Name</th>
+                                <th>Standard Packaging</th>
+                                <th>Division</th>
+                            </tr>
+                        </thead>
+                        <tbody id="product-table-body">
+                            <!-- Populated dynamically by script.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section brand-section">
+                <div class="footer-logo-wrapper">
+                    <img src="biotech_logo1.png" alt="Biotech Pharma Logo" class="footer-logo-img">
+                </div>
+                <p>An industry-leading Manufacturer, Wholesaler, and Exporter dedicated to advancing global healthcare through premium biotechnology solutions.</p>
+            </div>
+            <div class="footer-section links">
+                <h4>Corporate</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">Corporate Profile</a></li>
+                    <li><a href="products.html">Product Database</a></li>
+                    <li><a href="contact.html">Global Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section contact">
+                <h4>Global Headquarters</h4>
+                <p><i class="fas fa-map-marker-alt"></i> 20, Bharvad Vas, Bhayli - Sevasi Road,<br>Vadodara, Gujarat - 391410, India</p>
+                <p><i class="fas fa-envelope"></i> info@biotechpharmaindia.com</p>
+                <p><i class="fas fa-phone"></i> +91 98249 17054</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Biotech Pharma. All rights reserved. | Designed by Vishwakarma Cyber Technologies</p>
+        </div>
+    </footer>
+
+    <script async src='https://d2mpatx37cqexb.cloudfront.net/delightchat-whatsapp-widget/embeds/embed.min.js'></script>
+    <script>
+        var wa_btnSetting = {"btnColor":"#16BE45","ctaText":"WhatsApp Us","cornerRadius":40,"marginBottom":20,"marginLeft":20,"marginRight":20,"btnPosition":"right","whatsAppNumber":"919824917054","welcomeMessage":"Welcome To Biotech Pharma,\nHow can we assist with your wholesale or export inquiry?","zIndex":999999,"btnColorScheme":"dark"};
+        window.onload = () => { _waEmbed(wa_btnSetting); };
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
