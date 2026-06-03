@@ -42,23 +42,24 @@
             <a href="contact.html" class="btn btn-outline-white">Request Bulk Pricing</a>
         </div>
 
+        <!-- The Layout Grids properly handled for mobile -->
         <div class="products-layout">
             <div class="products-sidebar premium-shadow">
                 <h3>Formulation Categories</h3>
                 <ul id="category-filter" class="cat-list">
-                    <li><a href="#" class="active" data-filter="All"><i class="fas fa-layer-group"></i> Complete Database</a></li>
-                    <li><a href="#" data-filter="Pharmaceuticals"><i class="fas fa-pills"></i> Pharmaceuticals</a></li>
-                    <li><a href="#" data-filter="Nutraceuticals"><i class="fas fa-leaf"></i> Nutraceuticals</a></li>
-                    <li><a href="#" data-filter="Herbal"><i class="fas fa-seedling"></i> Herbal / Ayurvedic</a></li>
-                    <li><a href="#" data-filter="Cosmetics"><i class="fas fa-spa"></i> Derma & Cosmetics</a></li>
-                    <li><a href="#" data-filter="Medical Supplies & Surgicals"><i class="fas fa-stethoscope"></i> Medical & Surgicals</a></li>
+                    <li><a href="#" class="active" data-filter="All"><i class="fas fa-layer-group"></i> All</a></li>
+                    <li><a href="#" data-filter="Pharmaceuticals"><i class="fas fa-pills"></i> Pharma</a></li>
+                    <li><a href="#" data-filter="Nutraceuticals"><i class="fas fa-leaf"></i> Nutra</a></li>
+                    <li><a href="#" data-filter="Herbal"><i class="fas fa-seedling"></i> Herbal</a></li>
+                    <li><a href="#" data-filter="Cosmetics"><i class="fas fa-spa"></i> Derma</a></li>
+                    <li><a href="#" data-filter="Medical Supplies & Surgicals"><i class="fas fa-stethoscope"></i> Surgicals</a></li>
                 </ul>
             </div>
             
             <div class="products-content">
                 <div class="search-bar">
                     <i class="fas fa-search search-icon"></i>
-                    <input type="text" id="productSearch" placeholder="Search formulations by chemical, name, or form (e.g., 'Paracetamol')...">
+                    <input type="text" id="productSearch" placeholder="Search formulations by chemical or name...">
                 </div>
                 
                 <div class="table-responsive premium-shadow">
@@ -71,7 +72,8 @@
                             </tr>
                         </thead>
                         <tbody id="product-table-body">
-                            </tbody>
+                            <!-- Populated dynamically by script.js -->
+                        </tbody>
                     </table>
                 </div>
             </div>
