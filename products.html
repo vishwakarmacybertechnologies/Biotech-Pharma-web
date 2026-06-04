@@ -6,6 +6,13 @@
     <title>Biotech Pharma | Global Product Catalog</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .category-img-wrapper img { color: transparent; background-color: var(--bg-gray); }
+        .pdf-card-buttons { display: flex; gap: 10px; justify-content: center; margin-top: 1.5rem; }
+        
+        /* Force display for JS toggling */
+        .view-hidden { display: none !important; }
+    </style>
 </head>
 <body>
     <header id="navbar">
@@ -28,63 +35,168 @@
     <div class="page-header" style="background-image: linear-gradient(rgba(10, 25, 47, 0.8), rgba(10, 25, 47, 0.8)), url('https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; background-repeat: no-repeat; width: 100%; min-height: 400px; display: flex; align-items: center; justify-content: center;">
         <div class="container text-center">
             <h1 class="mega-title" style="color: white;">Global Product Database</h1>
-            <p class="lead-text" style="color: #cbd5e1;">Browse our 6000+ approved SKUs available for mass manufacturing, wholesale, and export.</p>
+            <p class="lead-text" style="color: #cbd5e1;">Browse our approved SKUs available for mass manufacturing, wholesale, and export.</p>
         </div>
     </div>
 
-    <main class="container section-padding slide-up">
+    <main class="container section-padding slide-up visible">
         
         <div class="wholesale-banner mb-5 premium-gradient-bg premium-shadow" style="padding: clamp(2rem, 4vw, 3rem) clamp(2rem, 5vw, 4rem);">
             <div>
                 <h3><i class="fas fa-shipping-fast gradient-gold icon-gradient"></i> Commercial Wholesale & Export Orders</h3>
-                <p>We supply massive volumes to international governments, hospital networks, and distributors. Minimum Order Quantities (MOQ) apply.</p>
+                <p>We supply massive volumes to international governments, hospital networks, and distributors.</p>
             </div>
             <a href="contact.html" class="btn btn-outline-white">Request Bulk Pricing</a>
         </div>
 
-        <!-- The Layout Grids properly handled for mobile -->
-        <div class="products-layout">
-            <div class="products-sidebar premium-shadow">
-                <h3>Formulation Categories</h3>
-                <ul id="category-filter" class="cat-list">
-                    <li><a href="#" class="active" data-filter="All"><i class="fas fa-layer-group"></i> All</a></li>
-                    <li><a href="#" data-filter="Pharmaceuticals"><i class="fas fa-pills"></i> Pharma</a></li>
-                    <li><a href="#" data-filter="Nutraceuticals"><i class="fas fa-leaf"></i> Nutra</a></li>
-                    <li><a href="#" data-filter="Herbal"><i class="fas fa-seedling"></i> Herbal</a></li>
-                    <li><a href="#" data-filter="Cosmetics"><i class="fas fa-spa"></i> Derma</a></li>
-                    <li><a href="#" data-filter="Medical Supplies & Surgicals"><i class="fas fa-stethoscope"></i> Surgicals</a></li>
-                </ul>
+        <div id="view-main-categories">
+            <div class="text-center mb-4">
+                <h2 class="section-title text-dark">Select a Division</h2>
+                <p class="text-light">Choose a primary division below to explore our offerings.</p>
             </div>
             
-            <div class="products-content">
-                <div class="search-bar">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" id="productSearch" placeholder="Search formulations by chemical or name...">
-                </div>
+            <div class="category-showcase" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); max-width: 800px; margin: 0 auto;">
                 
-                <div class="table-responsive premium-shadow">
-                    <table class="products-table">
-                        <thead>
-                            <tr>
-                                <th>Clinical Composition / Product Name</th>
-                                <th>Standard Packaging</th>
-                                <th>Division</th>
-                            </tr>
-                        </thead>
-                        <tbody id="product-table-body">
-                            <!-- Populated dynamically by script.js -->
-                        </tbody>
-                    </table>
+                <div class="category-card" id="btn-pharma">
+                    <div class="category-img-wrapper">
+                        <img src="https://placehold.co/500x500/0A192F/FFFFFF?text=Pharma" alt="Pharmaceuticals">
+                    </div>
+                    <div class="category-btn">Pharmaceuticals</div>
+                </div>
+
+                <div class="category-card" id="btn-surgicals">
+                    <div class="category-img-wrapper">
+                        <img src="https://placehold.co/500x500/0A192F/FFFFFF?text=Surgicals" alt="Medical Supplies & Surgicals">
+                    </div>
+                    <div class="category-btn">Surgicals</div>
                 </div>
             </div>
         </div>
+
+        <div id="view-pharma-subcategories" class="view-hidden">
+            <div class="back-btn-container" style="justify-content: flex-start;">
+                <button id="back-to-main-from-pharma" class="btn btn-outline" style="color: var(--deep-navy); border-color: var(--border-color); display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-arrow-left"></i> Back to Main Divisions
+                </button>
+            </div>
+
+            <div class="text-center mb-4">
+                <h2 class="section-title text-dark">Pharmaceutical Formulations</h2>
+                <p class="text-light">Select a specific formulation type to view our extensive generic database.</p>
+            </div>
+
+            <div class="category-showcase">
+                <div class="category-card sub-category-btn" data-category="Tablets">
+                    <div class="category-img-wrapper">
+                        <img src="https://placehold.co/500x500/0A192F/FFFFFF?text=Tablets" alt="Tablets">
+                    </div>
+                    <div class="category-btn">Tablets</div>
+                </div>
+
+                <div class="category-card sub-category-btn" data-category="Capsules">
+                    <div class="category-img-wrapper">
+                        <img src="https://placehold.co/500x500/0A192F/FFFFFF?text=Capsules" alt="Capsules">
+                    </div>
+                    <div class="category-btn">Capsules</div>
+                </div>
+
+                <div class="category-card sub-category-btn" data-category="Injections">
+                    <div class="category-img-wrapper">
+                        <img src="https://placehold.co/500x500/0A192F/FFFFFF?text=Injections" alt="Injections">
+                    </div>
+                    <div class="category-btn">Injections</div>
+                </div>
+
+                <div class="category-card sub-category-btn" data-category="Eye Drops">
+                    <div class="category-img-wrapper">
+                        <img src="https://placehold.co/500x500/0A192F/FFFFFF?text=Eye+Drops" alt="Eye Drops">
+                    </div>
+                    <div class="category-btn">Eye Drops</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-product-table" class="products-content view-hidden">
+            <div class="back-btn-container">
+                <button id="back-to-subcategories" class="btn btn-outline" style="color: var(--deep-navy); border-color: var(--border-color); display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-arrow-left"></i> Back to Subcategories
+                </button>
+                <h2 id="current-category-title" class="dynamic-category-title">Products</h2>
+            </div>
+
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="productSearch" placeholder="Search generic formulations...">
+            </div>
+            
+            <div class="table-responsive premium-shadow">
+                <table class="products-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 80px;">Sr. No.</th>
+                            <th>Generic Name / Clinical Composition</th>
+                            <th>Standard Packaging</th>
+                            <th>Division</th>
+                        </tr>
+                    </thead>
+                    <tbody id="product-table-body">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="view-surgical-pdfs" class="view-hidden">
+            <div class="back-btn-container" style="justify-content: flex-start;">
+                <button id="back-to-main-from-surgical" class="btn btn-outline" style="color: var(--deep-navy); border-color: var(--border-color); display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-arrow-left"></i> Back to Main Divisions
+                </button>
+            </div>
+
+            <div class="text-center mb-5">
+                <h2 class="section-title text-dark">Surgical Division Catalogs</h2>
+                <p class="text-light">View or download our comprehensive technical documentation and product specifications.</p>
+            </div>
+
+            <div class="grid-3">
+                <div class="premium-card text-center" style="cursor: default; transform: none;">
+                    <i class="fas fa-file-pdf card-icon" style="color: var(--primary-red); font-size: 4rem;"></i>
+                    <h3 class="mb-2">Biotech Pharma 1</h3>
+                    <p class="text-sm">Comprehensive overview of general surgical instruments, cannulae, and consumables.</p>
+                    <div class="pdf-card-buttons">
+                        <a href="biotech pharma 1 .pdf" target="_blank" class="btn btn-outline" style="padding: 0.8rem 1.5rem; color: var(--deep-navy); border-color: var(--border-color);">View</a>
+                        <a href="biotech pharma 1 .pdf" download class="btn btn-primary" style="padding: 0.8rem 1.5rem;"><i class="fas fa-download"></i> Download</a>
+                    </div>
+                </div>
+
+                <div class="premium-card text-center" style="cursor: default; transform: none;">
+                    <i class="fas fa-file-pdf card-icon" style="color: var(--primary-red); font-size: 4rem;"></i>
+                    <h3 class="mb-2">Biotech Pharma 2</h3>
+                    <p class="text-sm">Detailed specifications for advanced procedural, respiratory, and operating room supplies.</p>
+                    <div class="pdf-card-buttons">
+                        <a href="biotech pharma 2 .pdf" target="_blank" class="btn btn-outline" style="padding: 0.8rem 1.5rem; color: var(--deep-navy); border-color: var(--border-color);">View</a>
+                        <a href="biotech pharma 2 .pdf" download class="btn btn-primary" style="padding: 0.8rem 1.5rem;"><i class="fas fa-download"></i> Download</a>
+                    </div>
+                </div>
+
+                <div class="premium-card text-center" style="cursor: default; transform: none;">
+                    <i class="fas fa-file-pdf card-icon" style="color: var(--primary-red); font-size: 4rem;"></i>
+                    <h3 class="mb-2">Biotech Pharma 3</h3>
+                    <p class="text-sm">Technical catalog outlining specific material compositions, gauzes, and sterile bandaging.</p>
+                    <div class="pdf-card-buttons">
+                        <a href="biotech pharma 3 .pdf" target="_blank" class="btn btn-outline" style="padding: 0.8rem 1.5rem; color: var(--deep-navy); border-color: var(--border-color);">View</a>
+                        <a href="biotech pharma 3 .pdf" download class="btn btn-primary" style="padding: 0.8rem 1.5rem;"><i class="fas fa-download"></i> Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-section brand-section">
                 <div class="footer-logo-wrapper">
-                    <img src="biotech_logo1.png" alt="Biotech Pharma Logo" class="footer-logo-img">
+                    <img src="biotech_logo1.png" alt="Biotech Pharma Logo">
                 </div>
                 <p>An industry-leading Manufacturer, Wholesaler, and Exporter dedicated to advancing global healthcare through premium biotechnology solutions.</p>
             </div>
