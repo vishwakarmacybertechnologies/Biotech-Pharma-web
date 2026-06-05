@@ -395,18 +395,23 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch(e) { console.error("Menu error:", e); }
 
     // --- Safe Header Scroll Effect ---
-    try {
-        const header = document.getElementById('navbar');
-        if (header) {
-            window.addEventListener('scroll', () => {
+    // --- 2. Ultra-Smooth Header Scroll Effect ---
+    const header = document.getElementById('navbar');
+    let isScrolling = false;
+
+    window.addEventListener('scroll', () => {
+        if (!isScrolling) {
+            window.requestAnimationFrame(() => {
                 if (window.scrollY > 50) {
                     header.classList.add('scrolled');
                 } else {
                     header.classList.remove('scrolled');
                 }
+                isScrolling = false;
             });
+            isScrolling = true;
         }
-    } catch(e) { console.error("Header scroll error:", e); }
+    }, { passive: true }); // 'passive' prevents the scroll from blocking the main thread
 
     // --- Bulletproof Animation Observer ---
     try {
