@@ -18,6 +18,27 @@
     --shadow-soft: 0 10px 30px rgba(0,0,0,0.04);
     --shadow-strong: 0 20px 40px rgba(10, 25, 47, 0.12);
 }
+/* =========================================================================
+   PERFORMANCE & HARDWARE ACCELERATION (0 LAG)
+   ========================================================================= */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Force GPU acceleration for all animated elements */
+.marquee-row .track, 
+.slide-up, 
+.category-card, 
+.category-img-wrapper img, 
+.premium-card,
+.team-card {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0); /* 3D hardware trigger */
+}
 
 /* CORE RESPONSIVE FIXES */
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -82,6 +103,7 @@ header.scrolled .logo img { height: 40px; }
 .hero, .page-header { position: relative; background-attachment: fixed; background-size: cover; background-position: center; background-repeat: no-repeat; color: white; display: flex; align-items: center; justify-content: center; }
 .hero { height: 100vh; min-height: 500px; background-image: linear-gradient(135deg, rgba(10, 25, 47, 0.9) 0%, rgba(10, 25, 47, 0.6) 100%), url('hero1.png'); }
 .page-header { background-color: var(--deep-navy); padding: 8rem 1.5rem; min-height: 400px; background-image: linear-gradient(rgba(10, 25, 47, 0.85), rgba(10, 25, 47, 0.85)), url('https://images.unsplash.com/photo-1587854692152-cbe668df9731?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); }
+.hero .mega-title, .page-header .mega-title { color: #ffffff; }
 
 /* --- CERTIFICATIONS BAND --- */
 .certifications-band { background-color: var(--deep-navy); padding: 1rem 0; }
@@ -169,7 +191,8 @@ header.scrolled .logo img { height: 40px; }
 .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
 .team-card { background: var(--bg-white); padding: 3rem 1.5rem; border-radius: 8px; border: 1px solid var(--border-color); text-align: center; transition: transform var(--transition-speed); }
 .team-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-strong); border-color: transparent; }
-.team-avatar { width: 90px; height: 90px; background: var(--bg-gray); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem auto; font-size: 2.2rem; color: var(--primary-red); border: 3px solid var(--border-color); }
+.team-avatar { width: 150px; height: 150px; background: var(--bg-gray); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem auto; font-size: 2.2rem; color: var(--primary-red); border: 3px solid var(--border-color); overflow: hidden; }
+.team-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .team-card h3 { color: var(--deep-navy); margin-bottom: 0.2rem; font-size: 1.5rem;}
 .team-card .role { font-family: 'Inter', sans-serif; color: var(--premium-gold-dark); font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1.2px;}
 .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: clamp(2rem, 4vw, 3rem); }
@@ -178,6 +201,7 @@ header.scrolled .logo img { height: 40px; }
 .contact-detail-row { display: flex; gap: 1.2rem; margin-bottom: 2rem; }
 .contact-detail-row i { font-size: 1.5rem; color: var(--premium-gold); margin-top: 4px; }
 .contact-detail-row p { font-family: 'Inter', sans-serif; font-size: 1rem; }
+.contact-detail-row a { text-decoration: none; }
 .hover-gold:hover { color: var(--premium-gold) !important; }
 .form-card { background: var(--bg-white); padding: clamp(2rem, 5vw, 3rem); border-radius: 12px; border: 1px solid var(--border-color); }
 .form-card h3 { font-size: clamp(1.6rem, 4vw, 2.2rem); color: var(--deep-navy); }
@@ -241,6 +265,7 @@ header.scrolled .logo img { height: 40px; }
     .timeline-item { padding-left: 45px; }
     .timeline-item::before { left: 6px; }
 
-    .solid-overlay { position: relative; bottom: auto; left: auto; right: auto; margin-top: -30px; }
-    .content-right.image-placeholder { height: 300px; }
+    /* Fix for Solid Overlay (Snapping it to the very bottom side) */
+    .solid-overlay { position: absolute; bottom: 0; left: 0; right: 0; border-radius: 0 0 12px 12px; margin: 0; }
+    .content-right.image-placeholder { height: 300px; margin-bottom: 2rem; }
 }
