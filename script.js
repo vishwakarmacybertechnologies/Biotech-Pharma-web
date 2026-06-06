@@ -568,7 +568,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     } catch(e) { console.error("Menu error:", e); }
 
-    // --- Safe Header Scroll Effect ---
     // --- 2. Ultra-Smooth Header Scroll Effect ---
     const header = document.getElementById('navbar');
     let isScrolling = false;
@@ -585,7 +584,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             isScrolling = true;
         }
-    }, { passive: true }); // 'passive' prevents the scroll from blocking the main thread
+    }, { passive: true });
 
     // --- Bulletproof Animation Observer ---
     try {
@@ -671,23 +670,38 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (tableBody && viewProductTable) {
                 function renderTable(data) {
-                    tableBody.innerHTML = '';
-                    if (data.length === 0) {
-                        tableBody.innerHTML = '<tr><td colspan="4" class="text-center" style="padding: 3rem 1rem;">No formulations found matching your search.</td></tr>';
-                        return;
-                    }
-                    
-                    data.forEach(product => {
-                        const tr = document.createElement('tr');
-                        tr.innerHTML = `
-                            <td style="color: #64748b; font-weight: 700;">#${product.sr}</td>
-                            <td style="color: #0A192F; font-weight: 600;">${product.name}</td>
-                            <td style="color: #64748b;">${product.packaging}</td>
-                            <td><span style="background: rgba(78, 230, 230, 0.15); color: var(--deep-navy); padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; border: 1px solid rgba(78, 230, 230, 0.5); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap;">${product.category}</span></td>
-                        `;
-                        tableBody.appendChild(tr);
-                    });
-                }
+    tableBody.innerHTML = '';
+    if (data.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="4" class="text-center" style="padding: 3rem 1rem;">No formulations found matching your search.</td></tr>';
+        return;
+    }
+    
+    data.forEach((product, index) => {
+        const tr = document.createElement('tr');
+        
+        tr.innerHTML = `
+            <td style="color: #64748b; font-weight: 700; font-size: 0.9rem;">#${product.sr}</td>
+            <td style="color: #0A192F; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">${product.name}</td>
+            <td style="color: #64748b; font-size: 0.95rem;">Packaging: <span style="color: #1e293b; font-weight: 500;">${product.packaging}</span></td>
+            <td style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <select id="qty-${index}" style="padding: 10px; border-radius: 6px; border: 1px solid var(--border-color); font-family: 'Inter', sans-serif; flex-grow: 1;">
+                    <option value="1">1 Box</option>
+                    <option value="2">2 Boxes</option>
+                    <option value="3">3 Boxes</option>
+                    <option value="4">4 Boxes</option>
+                    <option value="5">5 Boxes</option>
+                    <option value="6">6 Boxes</option>
+                    <option value="7">7 Boxes</option>
+                    <option value="8">8 Boxes</option>
+                    <option value="9">9 Boxes</option>
+                    <option value="10">10 Boxes</option>
+                </select>
+                <button class="btn btn-primary" onclick="addToCart('${product.name.replace(/'/g, "\\'")}', '${product.packaging}', '${product.category}', 'qty-${index}')" style="padding: 10px 15px; font-size: 0.9rem; flex-grow: 2; border-radius: 6px;">Add to Cart</button>
+            </td>
+        `;
+        tableBody.appendChild(tr);
+    });
+}
                 
                 function filterData() {
                     if (!searchInput) return;
@@ -726,6 +740,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     } catch(e) { console.error("Products Logic Error:", e); }
+    
     // --- Animated Counters Fix ---
     try {
         const counters = document.querySelectorAll('.stat-number');
@@ -759,3 +774,41 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     } catch(e) { console.error("Counter error:", e); }
 });
+
+// --- NEW CART LOGIC ---
+window.addToCart = function(name, packaging, category, selectId) {
+    const qtyDropdown = document.getElementById(selectId);
+    const quantity = qtyDropdown.value;
+    const button = qtyDropdown.nextElementSibling;
+    
+    // બટન એનિમેશન
+    const originalText = button.innerText;
+    button.innerText = "Adding...";
+    button.disabled = true;
+
+    // ગ્રાહકના કાર્ટમાં ડેટા સેવ કરો (LocalStorage)
+    let cart = JSON.parse(localStorage.getItem('biotechCart')) || [];
+    
+    // જો પ્રોડક્ટ પહેલેથી જ કાર્ટમાં હોય તો માત્ર Quantity પ્લસ કરો
+    let existingItem = cart.find(item => item.name === name);
+    if(existingItem) {
+        existingItem.quantity = parseInt(existingItem.quantity) + parseInt(quantity);
+    } else {
+        cart.push({ name, packaging, category, quantity });
+    }
+    
+    localStorage.setItem('biotechCart', JSON.stringify(cart));
+
+    // Success બતાવો
+    setTimeout(() => {
+        button.style.backgroundColor = "#16BE45"; 
+        button.innerText = "Added ✓";
+        
+        setTimeout(() => {
+            button.style.backgroundColor = "";
+            button.innerText = originalText;
+            button.disabled = false;
+            qtyDropdown.value = "1";
+        }, 1500);
+    }, 400);
+};
