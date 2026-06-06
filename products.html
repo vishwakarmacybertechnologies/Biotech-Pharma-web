@@ -17,19 +17,29 @@
 <body>
     <header id="navbar">
         <nav>
-            <a href="index.html" class="logo">
-                <img src="biotech_logo1.png" alt="Biotech Pharma Logo">
-            </a>
-            <div class="hamburger" id="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </div>
-            <ul class="nav-links" id="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="products.html" class="active">Products</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-            </ul>
-        </nav>
+    <a href="index.html" class="logo">
+        <img src="biotech_logo1.png" alt="Biotech Pharma Logo">
+    </a>
+
+    <!-- નવું કન્ટેનર: કાર્ટ અને હેમબર્ગર મેનુ અહીં સાથે રહેશે -->
+    <div class="nav-right-container">
+        <a href="cart.html" class="cart-icon-nav">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count">0</span> <!-- અહીં કેટલી વસ્તુ છે તે દેખાશે -->
+        </a>
+        <div class="hamburger" id="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+
+    <!-- મેનુ લિંક્સ (અહીંથી Cart કાઢી નાખ્યું છે) -->
+    <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+</nav>
     </header>
 
     <div class="page-header" style="background-image: linear-gradient(rgba(10, 25, 47, 0.8), rgba(10, 25, 47, 0.8)), url('https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; background-repeat: no-repeat; width: 100%; min-height: 400px; display: flex; align-items: center; justify-content: center;">
@@ -147,13 +157,20 @@
             <div class="table-responsive premium-shadow">
                 <table class="products-table">
                     <thead>
-                        <tr>
-                            <th style="width: 80px;">Sr. No.</th>
-                            <th>Generic Name / Clinical Composition</th>
-                            <th>Standard Packaging</th>
-                            <th>Division</th>
-                        </tr>
-                    </thead>
+    <tr>
+        <!-- 1. સિરિયલ નંબર માટે નવું હેડિંગ -->
+        <th style="width: 5%;">SR. NO.</th>
+        
+        <!-- 2. પ્રોડક્ટના નામ માટે હેડિંગ -->
+        <th style="width: 50%;">CLINICAL COMPOSITION / PRODUCT NAME</th>
+        
+        <!-- 3. પેકેજિંગ માટે હેડિંગ (DIVISION કાઢી નાખ્યું છે) -->
+        <th style="width: 20%;">STANDARD PACKAGING</th>
+        
+        <!-- 4. બટન અને કોન્ટીટી માટે હેડિંગ -->
+        <th style="width: 25%;">QUANTITY & ORDER</th>
+    </tr>
+</thead>
                     <tbody id="product-table-body">
                         </tbody>
                 </table>
@@ -204,6 +221,7 @@
                 </div>
             </div>
         </div>
+        
 
     </main>
 
