@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biotech Pharma | Your Cart</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Cart Specific Styles */
+        .cart-layout { 
+            display: grid; 
+            grid-template-columns: 2fr 1fr; 
+            gap: 3rem; 
+            align-items: start; 
+        }
+        .cart-items-box, .cart-form-box { 
+            background: #ffffff; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 12px; 
+            padding: 2rem; 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); 
+        }
+        .cart-list { 
+            border-collapse: collapse; 
+            width: 100%; 
+        }
+        .cart-list th, .cart-list td { 
+            padding: 1.2rem 1rem; 
+            text-align: left; 
+            border-bottom: 1px solid #e2e8f0; 
+            font-family: 'Inter', sans-serif; 
+        }
+        .cart-list th { 
+            color: #64748b; 
+            font-size: 0.9rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+        }
+        .remove-btn { 
+            color: #ef4444; 
+            background: none; 
+            border: none; 
+            font-size: 1.2rem; 
+            cursor: pointer; 
+            transition: color 0.3s ease;
+        }
+        .remove-btn:hover {
+            color: #b91c1c;
+        }
+        #success-message { 
+            text-align: center; 
+            padding: 4rem 2rem; 
+        }
+        
+        @media (max-width: 992px) {
+            .cart-layout { grid-template-columns: 1fr; gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <header id="navbar">
+        <nav>
+    <a href="index.html" class="logo">
+        <img src="biotech_logo1.png" alt="Biotech Pharma Logo">
+    </a>
+
+    <!-- નવું કન્ટેનર: કાર્ટ અને હેમબર્ગર મેનુ અહીં સાથે રહેશે -->
+    <div class="nav-right-container">
+        <a href="cart.html" class="cart-icon-nav">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count">0</span> <!-- અહીં કેટલી વસ્તુ છે તે દેખાશે -->
+        </a>
+        <div class="hamburger" id="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+
+    <!-- મેનુ લિંક્સ (અહીંથી Cart કાઢી નાખ્યું છે) -->
+    <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+</nav>
+    </header>
+
+    <div class="page-header" style="background-color: #0a192f; padding: 5rem 1.5rem; min-height: 200px;">
+        <div class="container text-center">
+            <h1 class="mega-title text-white" style="font-size: 3rem; margin-top: 2rem;">Your Order Cart</h1>
+        </div>
+    </div>
+
+    <!-- Main Cart Container -->
+    <main class="container section-padding" id="main-cart-container" style="padding-top: 4rem; padding-bottom: 4rem; opacity: 1 !important; visibility: visible !important;">
+        <div class="cart-layout" id="cart-content">
+            <!-- Left Side: Cart Items -->
+            <div class="cart-items-box">
+                <h3 class="mb-4" style="color: #0a192f; border-bottom: 2px solid #f1f5f9; padding-bottom: 1rem;">Selected Formulations</h3>
+                <div style="overflow-x: auto;">
+                    <table class="cart-list">
+                        <thead>
+                            <tr>
+                                <th>Product Details</th>
+                                <th>Quantity</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-table-body">
+                            <!-- Items will be injected here via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Right Side: Order Form -->
+            <div class="cart-form-box">
+                <h3 class="mb-3" style="color: #0a192f;">Confirm Details</h3>
+                <p class="text-sm mb-4" style="color: #64748b;">Please provide your details so our executive can contact you shortly.</p>
+                
+                <form id="finalOrderForm" onsubmit="submitFinalOrder(event)">
+                    <div class="input-group" style="margin-bottom: 1.5rem;">
+                        <label style="font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; display: block; color: #334155;">Doctor / Company Name *</label>
+                        <input type="text" id="docName" placeholder="Enter Full Name" required style="width: 100%; padding: 0.8rem; border: 1px solid #cbd5e1; border-radius: 6px;">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 1.5rem;">
+                        <label style="font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; display: block; color: #334155;">Contact Number *</label>
+                        <input type="tel" id="contactNum" placeholder="+91 98765 XXXXX" required style="width: 100%; padding: 0.8rem; border: 1px solid #cbd5e1; border-radius: 6px;">
+                    </div>
+                    <button type="submit" id="placeOrderBtn" class="btn btn-primary w-100 mt-3" style="padding: 1rem; font-size: 1.1rem; background-color: #0a192f; color: #fff; border: none; border-radius: 6px; cursor: pointer;">Place Bulk Order</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Success Message -->
+        <div id="success-message" style="display: none;">
+            <i class="fas fa-check-circle" style="font-size: 5rem; color: #16BE45; margin-bottom: 1.5rem;"></i>
+            <h2 style="color: #0a192f; font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 1rem;">Your order is placed successfully!</h2>
+            <p style="color: #64748b; font-size: 1.2rem; max-width: 600px; margin: 0 auto 2rem auto;">Thank you, <strong id="success-name"></strong>. We will contact you at <strong id="success-phone"></strong> in a short time to process your order.</p>
+            <a href="products.html" class="btn" style="padding: 1rem 2rem; background-color: #0a192f; color: #fff; text-decoration: none; border-radius: 6px; display: inline-block;">Back to Products</a>
+        </div>
+    </main>
+
+    <!-- Footer Area -->
+    <footer class="footer">
+        <div class="footer-bottom" style="text-align: center; padding: 1.5rem; background-color: #020c1b; color: #8892b0;">
+            <p>&copy; 2026 Biotech Pharma. All rights reserved. | Designed by Vishwakarma Cyber Technologies</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript to Handle Cart & Email Sending -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCartItems();
+        });
+
+        function loadCartItems() {
+            const cartBody = document.getElementById('cart-table-body');
+            const cartCountBadge = document.getElementById('cart-count');
+            let cart = JSON.parse(localStorage.getItem('biotechCart')) || [];
+            
+            // Update Cart Counter in Navbar
+            if(cartCountBadge) {
+                cartCountBadge.innerText = cart.length;
+            }
+            
+            if (cart.length === 0) {
+                cartBody.innerHTML = '<tr><td colspan="3" style="text-align:center; padding: 3rem 1rem;">Your cart is empty.<br><br> <a href="products.html" style="color: #ef4444; font-weight: bold; text-decoration: underline;">Go add some products!</a></td></tr>';
+                document.getElementById('placeOrderBtn').disabled = true;
+                document.getElementById('placeOrderBtn').style.opacity = '0.5';
+                document.getElementById('placeOrderBtn').style.cursor = 'not-allowed';
+                return;
+            }
+
+            document.getElementById('placeOrderBtn').disabled = false;
+            document.getElementById('placeOrderBtn').style.opacity = '1';
+            document.getElementById('placeOrderBtn').style.cursor = 'pointer';
+
+            cartBody.innerHTML = '';
+            cart.forEach((item, index) => {
+                cartBody.innerHTML += `
+                    <tr>
+                        <td>
+                            <strong style="color: #0a192f; font-size: 1.1rem;">${item.name}</strong><br>
+                            <span style="font-size: 0.85rem; color: #64748b; margin-top: 4px; display: inline-block;">${item.packaging} | ${item.category}</span>
+                        </td>
+                        <td style="font-weight: 600; color: #334155;">${item.quantity} Boxes</td>
+                        <td style="text-align: center;"><button type="button" class="remove-btn" onclick="removeItem(${index})" title="Remove Item"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                `;
+            });
+        }
+
+        function removeItem(index) {
+            let cart = JSON.parse(localStorage.getItem('biotechCart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('biotechCart', JSON.stringify(cart));
+            loadCartItems();
+        }
+
+        async function submitFinalOrder(event) {
+            event.preventDefault();
+            
+            const orderBtn = document.getElementById('placeOrderBtn');
+            const originalBtnText = orderBtn.innerText;
+            orderBtn.innerText = "Sending Order...";
+            orderBtn.disabled = true;
+
+            const docName = document.getElementById('docName').value;
+            const contactNum = document.getElementById('contactNum').value;
+            
+            let cart = JSON.parse(localStorage.getItem('biotechCart')) || [];
+            
+            if (cart.length === 0) {
+                alert("Your cart is empty!");
+                orderBtn.innerText = originalBtnText;
+                orderBtn.disabled = false;
+                return;
+            }
+
+            // Formatting the order details with separate Packaging and Category lines
+            let orderDetailsList = cart.map((item, index) => 
+                `Item ${index + 1}:\nProduct: ${item.name}\nPackaging: ${item.packaging}\nCategory: ${item.category}\nQuantity: ${item.quantity} Boxes`
+            ).join("\n-----------------------------------\n\n");
+
+            // --- IMPORTANT: ADD YOUR WEB3FORMS ACCESS KEY HERE ---
+            const formData = {
+                access_key: "e6e41e8d-e5b2-4f98-b63e-09aa4ccfcfef", 
+                subject: "New Bulk Order Received - Biotech Pharma",
+                from_name: "Biotech Website",
+                Doctor_Name: docName,
+                Contact_Number: contactNum,
+                Order_Details: orderDetailsList
+            };
+
+            try {
+                const response = await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (response.status === 200) {
+                    document.getElementById('cart-content').style.display = 'none';
+                    document.getElementById('success-name').innerText = docName;
+                    document.getElementById('success-phone').innerText = contactNum;
+                    document.getElementById('success-message').style.display = 'block';
+
+                    localStorage.removeItem('biotechCart');
+                    
+                    const cartCountBadge = document.getElementById('cart-count');
+                    if(cartCountBadge) {
+                        cartCountBadge.innerText = "0";
+                    }
+                } else {
+                    alert("Something went wrong! Please try again.");
+                    orderBtn.innerText = originalBtnText;
+                    orderBtn.disabled = false;
+                }
+            } catch (error) {
+                console.error("Error submitting order:", error);
+                alert("Network error! Check your internet connection.");
+                orderBtn.innerText = originalBtnText;
+                orderBtn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
